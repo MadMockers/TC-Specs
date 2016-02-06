@@ -1,3 +1,4 @@
+
 This document is in addition to the base Mass Storage API
 
     .----------------------------.
@@ -5,7 +6,7 @@ This document is in addition to the base Mass Storage API
     '----------------------------'
 
 Name: Mass Storage, 16bit Floppy Drive
-Hardware Class: 0x4f
+Hardware Class: 0x4F
 Standard API Version: 0x0
 
 

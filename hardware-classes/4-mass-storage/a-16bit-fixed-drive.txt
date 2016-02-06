@@ -1,0 +1,52 @@
+
+This document is in addition to the base Mass Storage API
+
+    .----------------------------.
+----! Hardware Class Information !----------------------------------------------
+    '----------------------------'
+
+Name: Mass Storage, 16 bit fixed drive
+Hardware Class: 0x4A
+Standard API Version: 0x0
+
+
+
+    .--------------------.
+----! INTERRUPT BEHAVIOR !------------------------------------------------------
+    '--------------------'
+
+The additional interrupts behaviors are defined:
+
+A, B, C, X, Y, Z, I, J below refer to the registers on the DCPU
+
+A: Behavior:
+
+0x0100  Spin Down
+        Parks the heads and spins down the drive to conserve power.
+
+0x0101  Spin Up
+        Spins up the drive to make ready for reading/writing.  The drive will need a 15
+        second interval to reach the proper speed.
+
+
+
+    .-------------.
+----! STATE CODES !-------------------------------------------------------------
+    '-------------'
+
+These additional states are defined:
+
+0x0100 STATE_READY_WP   The drive is ready but read only.
+0x0101 STATE_PARKED     The drive has been spun down and needs to be restarted.
+0x0102 STATE_PARKED_WP  The drive has been spun down and is write protected.
+0x0103 STATE_INIT       The drive is still spinning up.
+0x0104 STATE_INIT_WP    The drive is still spinning up and is write protected.
+
+
+
+    .-------------.
+----! ERROR CODES !-------------------------------------------------------------
+    '-------------'
+
+0x0100 ERROR_PROTECTED   Tried to write to read only drive.
+0x0101 ERROR_PARKED      Attempted to read/write from a spun down drive.
