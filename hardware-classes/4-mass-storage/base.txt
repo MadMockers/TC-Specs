@@ -4,7 +4,7 @@
 
 Name: Mass Storage
 Hardware Class: 0x4*
-Standare API Version: 0x0
+Standard API Version: 0x0
 
 
 

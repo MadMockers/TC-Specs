@@ -6,6 +6,7 @@ This document is in addition to the base Mass Storage API
 
 Name: Mass Storage, 16bit Floppy Drive
 Hardware Class: 0x4f
+Standard API Version: 0x0
 
 
 
