@@ -1,0 +1,37 @@
+This document is in addition to the base Mass Storage API
+
+    .----------------------------.
+----! Hardware Class Information !----------------------------------------------
+    '----------------------------'
+
+Name: Mass Storage, 16bit Floppy Drive
+Hardware Class: 0x4f
+
+
+
+    .--------------------.
+----! INTERRUPT BEHAVIOR !------------------------------------------------------
+    '--------------------'
+
+As defined for the base Mass Storage API
+
+    .-------------.
+----! STATE CODES !-------------------------------------------------------------
+    '-------------'
+
+These additional states are defined:
+
+0x0100 STATE_NO_MEDIA   There's no floppy in the drive.
+0x0101 STATE_READY_WP   Same as ready, except the floppy is write protected.
+
+
+
+    .-------------.
+----! ERROR CODES !-------------------------------------------------------------
+    '-------------'
+
+These additional errors are defined:
+
+0x0100 ERROR_NO_MEDIA   Attempted to read or write with no floppy inserted.
+0x0101 ERROR_PROTECTED  Attempted to write to write protected floppy.
+0x0102 ERROR_EJECT      The floppy was removed while reading or writing.

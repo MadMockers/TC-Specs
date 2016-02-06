@@ -1,0 +1,58 @@
+    .----------------------------.
+----! Hardware Class Information !----------------------------------------------
+    '----------------------------'
+
+Name: Mass Storage
+Hardware Class: 0x4*
+Standare API Version: 0x0
+
+
+
+    .--------------------.
+----! INTERRUPT BEHAVIOR !------------------------------------------------------
+    '--------------------'
+
+A, B, C, X, Y, Z, I, J below refer to the registers on the DCPU
+
+A: Behavior:
+
+0  Poll device. Sets B to the current state (see below) and C to the last error
+   since the last device poll.
+
+1  Set interrupt. Enables interrupts and sets the message to X if X is anything
+   other than 0, disables interrupts if X is 0. When interrupts are enabled,
+   the drive will trigger an interrupt on the DCPU-16 whenever the state or
+   error message changes.
+
+2  Read sector. Reads sector X to DCPU ram starting at Y.
+   Sets B to 1 if reading is possible and has been started, anything else if it
+   fails. Reading is only possible if the state is STATE_READY or
+   STATE_READY_WP.
+   Protects against partial reads.
+
+3  Write sector. Writes sector X from DCPU ram starting at Y.
+   Sets B to 1 if writing is possible and has been started, anything else if it
+   fails. Writing is only possible if the state is STATE_READY.
+   Protects against partial writes.
+
+F  Information. Sets B to the sector size and C to the total number of sectors.
+
+
+    .-------------.
+----! STATE CODES !-------------------------------------------------------------
+    '-------------'
+
+0x0000 STATE_READY      The drive is ready to accept commands.
+0x0001 STATE_BUSY       The drive is busy either reading or writing a sector.
+
+
+
+    .-------------.
+----! ERROR CODES !-------------------------------------------------------------
+    '-------------'
+
+0x0000 ERROR_NONE       There's been no error since the last poll.
+0x0001 ERROR_BUSY       Drive is busy performing an action
+0x0002 ERROR_BAD_SECTOR The requested sector is broken, the data on it is lost.
+0x00ff ERROR_BROKEN     There's been some major software or hardware problem,
+                        try turning off and turning on the device again.
